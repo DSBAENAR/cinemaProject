@@ -10,12 +10,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
+import io.swagger.v3.oas.annotations.Hidden;
+
 
 @Table(name = "movies")
 @JsonDeserialize(builder = Movie.Builder.class)
 public class Movie {
 
-  
+    @Hidden
     private Integer id;
 
     private String Name;
