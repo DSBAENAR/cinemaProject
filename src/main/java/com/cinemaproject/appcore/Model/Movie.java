@@ -2,31 +2,34 @@ package com.cinemaproject.appcore.Model;
 
 import java.time.LocalTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Entity
+
+@Table(name = "movies")
 public class Movie {
-    @Id
+    
+  
     private String id;
 
    
     private String Name;
 
-    @Column(name = "description")
+
     private String Description;
     private String Director;
 
-    @Column(name = "releaseDate")
+    public Movie() {}
+
+    @Column("releaseDate")
     private LocalTime ReleaseDate;
     private String Genre;
     private LocalTime Duration;
 
-    @Column(nullable = true)
+
     private String Observation;
 
-    @Column(name = "originCountry")
+    @Column("originCountry")
     private String OriginCountry;
     private String Actors;
     private String Language;
