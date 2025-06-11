@@ -1,6 +1,8 @@
 package com.cinemaproject.appcore.Model;
 
 import java.time.LocalDate;
+import java.util.List;
+
 
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -26,7 +28,10 @@ public class Movie {
 
     @Column("release_date")
     private LocalDate ReleaseDate;
-    private Genre Genre;
+
+
+    @Column("genre")
+    private List<Genre> Genre;
     private Integer Duration;
 
 
@@ -59,7 +64,7 @@ public class Movie {
         private String Description;
         private String Director;
         private LocalDate ReleaseDate;
-        private Genre Genre;
+        private List<Genre> Genre;
         private Integer Duration;
         private String Observation;
         private String OriginCountry;
@@ -91,7 +96,7 @@ public class Movie {
             return this;
         }
 
-        public Builder Genre(Genre genre) {
+        public Builder Genre(List<com.cinemaproject.appcore.Model.Genre> genre) {
             this.Genre = genre;
             return this;
         }
@@ -166,11 +171,11 @@ public class Movie {
         ReleaseDate = releaseDate;
     }
 
-    public Genre getGenre() {
+    public List<Genre> getGenre() {
         return Genre;
     }
 
-    public void setGenre(Genre genre) {
+    public void setGenre(List<Genre> genre) {
         Genre = genre;
     }
 
@@ -213,4 +218,5 @@ public class Movie {
     public void setLanguage(String language) {
         Language = language;
     }
+
 }

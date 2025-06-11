@@ -27,7 +27,15 @@ public class MovieService {
                 .switchIfEmpty(Flux.error(new RuntimeException("No movies found")));
     }
 
+    /**
+     * Adds a new movie to the repository after validating it.
+     *
+     * @param movie the movie to be added.
+     * @return a Mono containing the added movie.
+     */
     public Mono<Movie> addMovie(Movie movie) {
+
+        
         Movie movieBuild = new Movie.Builder()
                 .Name(movie.getName())
                 .Description(movie.getDescription())
@@ -55,6 +63,12 @@ public class MovieService {
 
     } 
 
+    /**
+     * Validates the movie details before adding it to the repository.
+     *
+     * @param movie the movie to be validated.
+     * @return a Mono that completes if validation passes, or an error if validation fails.
+     */
     public Mono<Void> validateMovie(Movie movie) {
         return movieRepository.existsByName(movie.getName())
                 .flatMap(exists -> {
@@ -89,5 +103,17 @@ public class MovieService {
                 });
     }
 
-
+    /**
+     * Retrieves a movie by its name.
+     *
+     * @param name the name of the movie to retrieve.
+     * @return a Mono containing the movie if found, or an error if not found.
+     */
+    public Flux<Movie> getMoviesByName(String name) {
+        return movieRepository.findByName(name)
+                .flatMapMany(Flux::just)
+                .switchIfEmpty(movieRepository.findByNameContaining(name))
+                .switchIfEmpty(Mono.error(new RuntimeException("Movie not found")));
+    
+    }
 }
