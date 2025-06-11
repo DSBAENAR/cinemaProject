@@ -7,7 +7,6 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.cinemaproject.appcore.Model.Movie;
 import com.cinemaproject.appcore.Service.MovieService;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -22,6 +21,12 @@ public class MovieHandler {
     public Mono<ServerResponse> getMovies(ServerRequest request) {
         return ServerResponse.ok()
                 .body(movieService.getAllMovies(), Movie.class);
+    }
+
+    public Mono<ServerResponse> addMovie(ServerRequest request){
+        return ServerResponse.ok()
+                .body(request.bodyToMono(Movie.class)
+                .flatMap(movieService::addMovie), Movie.class);
     }
 
 }

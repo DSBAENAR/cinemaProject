@@ -1,18 +1,21 @@
 package com.cinemaproject.appcore.Model;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+
 
 @Table(name = "movies")
+@JsonDeserialize(builder = Movie.Builder.class)
 public class Movie {
-    
-  
-    private String id;
 
-   
+  
+    private Integer id;
+
     private String Name;
 
 
@@ -21,15 +24,15 @@ public class Movie {
 
     public Movie() {}
 
-    @Column("releaseDate")
-    private LocalTime ReleaseDate;
-    private String Genre;
-    private LocalTime Duration;
+    @Column("release_date")
+    private LocalDate ReleaseDate;
+    private Genre Genre;
+    private Integer Duration;
 
 
     private String Observation;
 
-    @Column("originCountry")
+    @Column("origin_country")
     private String OriginCountry;
     private String Actors;
     private String Language;
@@ -49,20 +52,21 @@ public class Movie {
         this.Language = builder.Language;
     }
 
+    @JsonPOJOBuilder(withPrefix = "")
     public static class Builder {
-        private String id;
+        private Integer id;
         private String Name;
         private String Description;
         private String Director;
-        private LocalTime ReleaseDate;
-        private String Genre;
-        private LocalTime Duration;
+        private LocalDate ReleaseDate;
+        private Genre Genre;
+        private Integer Duration;
         private String Observation;
         private String OriginCountry;
         private String Actors;
         private String Language;
 
-        public Builder id(String id) {
+        public Builder id(Integer id) {
             this.id = id;
             return this;
         }
@@ -82,17 +86,17 @@ public class Movie {
             return this;
         }
 
-        public Builder ReleaseDate(LocalTime releaseDate) {
+        public Builder ReleaseDate(LocalDate releaseDate) {
             this.ReleaseDate = releaseDate;
             return this;
         }
 
-        public Builder Genre(String genre) {
+        public Builder Genre(Genre genre) {
             this.Genre = genre;
             return this;
         }
 
-        public Builder Duration(LocalTime duration) {
+        public Builder Duration(Integer duration) {
             this.Duration = duration;
             return this;
         }
@@ -122,11 +126,11 @@ public class Movie {
         }
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -154,27 +158,27 @@ public class Movie {
         Director = director;
     }
 
-    public LocalTime getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return ReleaseDate;
     }
 
-    public void setReleaseDate(LocalTime releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         ReleaseDate = releaseDate;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return Genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         Genre = genre;
     }
 
-    public LocalTime getDuration() {
+    public Integer getDuration() {
         return Duration;
     }
 
-    public void setDuration(LocalTime duration) {
+    public void setDuration(Integer duration) {
         Duration = duration;
     }
 
